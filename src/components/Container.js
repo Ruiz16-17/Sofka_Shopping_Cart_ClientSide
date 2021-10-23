@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { connect } from 'react-redux';
+import DisplayPhone from './DisplayPhone';
 import MyCart from './MyCart';
-import Phone from './Phone';
 import ShoppingCart from './ShoppingCart';
 
 
 class Container extends Component {
     render() {
-        const { phones } = this.props
+        const { inCart_phones, outCart_phones } = this.props
         return (
             <div class="ui container">
                 <div className="main-header">
@@ -29,11 +30,9 @@ class Container extends Component {
                             </div>
                             <div class="ui row">
                                 <div className="shopping-list">
-                                    {Object.keys(phones).map((phone) => (
-                                        <Phone key={phone} brand={phones[phone].brand} />
-                                    ))}
+                                    <DisplayPhone displayPhones={outCart_phones} />
                                 </div>
-                                <ShoppingCart />
+                                <ShoppingCart inCart_phones={inCart_phones} />
                             </div>
                         </DndProvider>
                     </div>
@@ -44,4 +43,15 @@ class Container extends Component {
     }
 }
 
-export default Container
+function mapStateToProps({ phones }) {
+    const inCart_phones = Object.keys(phones).filter((phone) => phones[phone].inCart === 'true')
+    const outCart_phones = Object.keys(phones).filter((phone) => !inCart_phones.includes(phone))
+
+    return {
+        inCart_phones,
+        outCart_phones,
+    }
+}
+
+
+export default connect(mapStateToProps)(Container)

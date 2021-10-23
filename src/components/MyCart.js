@@ -21,6 +21,7 @@ class MyCart extends Component {
                         </div>
                         <div class="extra content">
                             <div class="ui two buttons">
+            
                                 <button class="ui green basic button">Buy</button>
                                 <button class="ui red basic button">Decline</button>
                             </div>

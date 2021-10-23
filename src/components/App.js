@@ -14,6 +14,7 @@ class App extends Component {
                 this.props.dispatch(receivePhones(phones))
             })
     }
+
     render() {
         const { phones } = this.props
 
@@ -21,6 +22,16 @@ class App extends Component {
             <Container phones={phones} />
         );
     }
+
+    
+    render() {
+
+        return (
+            <Container />
+        );
+    }
+
+
 }
 
 function mapStateToProps({ phones }) {
